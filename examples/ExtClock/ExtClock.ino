@@ -1,7 +1,9 @@
 /*
 	Clock example example (Extended class example)
 
-  Display a clock on the display. For this demo you can add a speed multiplier to make the clock run faster. For a real clock you want to use a delay of 1 min or even use a Real Time Clock module (RTC)
+  Display a clock on the display. 
+  For this demo you can add a speed multiplier to make the clock run faster. 
+  For a real clock you want to use a delay of 1 min or even use a Real Time Clock module (RTC)
 
 	The circuit:
   * connect TM1637 pin CLK to Arduino pin D4
@@ -27,7 +29,9 @@ const byte PIN_CLK = 4;   // define CLK pin (any digital pin)
 const byte PIN_DIO = 5;   // define DIO pin (any digital pin)
 SevenSegmentExtended      display(PIN_CLK, PIN_DIO);
 
-const unsigned int clockSpeed = 10000;    // speed up clock for demo
+const unsigned int clockSpeed = 1;    // speed up clock for demo
+byte hours    = 23;                           // initialize hours
+byte minutes  = 59;                           // initialize minutes
 
 // run setup code
 void setup() {
@@ -39,15 +43,12 @@ void setup() {
 
 // run loop (forever)
 void loop() {
-
-  byte hours    = 14;                           // initialize hours
-  byte minutes  = 39;                           // initialize minutes
-
-  for ( ; hours < 24; hours++) {                // count hours   up to 24
+  for ( ; hours < 24; hours++) {                // count hours up to 23
     for ( ; minutes < 60; minutes++) {          // count minutes up to 59
       display.printTime(hours, minutes, true);  // display time
       delay(60000 / clockSpeed);                // clock delay ms
-    };
+    }
     minutes = 0;                                // reset minutes
-  };
-};
+  }
+  hours = 0;                                    // reset hours
+}
